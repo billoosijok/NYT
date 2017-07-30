@@ -14,12 +14,12 @@ $(function() {
 	// API Connections
 	var searchAPI = new API_Connect({
 		url : 'https://api.nytimes.com/svc/search/v2/articlesearch.json',
-		apikey : '/* API Key */'
+		apikey : searchAPIKey
 	});
 
 	var topStoriesAPI = new API_Connect({
 		url: 'https://api.nytimes.com/svc/topstories/v2/home.json',
-		apikey: '/* API Key */'
+		apikey: topStoriesAPIKey
 	});
 
 	init();
@@ -31,9 +31,9 @@ $(function() {
 		// Event Handlers
 		searchForm.submit(function(e) {
 			e.preventDefault();
-			
+
 			var query = $(this).find('#search-box').val();
-			
+
 			if (query.length > 0) {
 				loadNYTSearchResults(searchAPI, search_articleContainer, {q: query});
 			} else {
@@ -41,9 +41,5 @@ $(function() {
 			}
 		});
 	}
-	
+
 });
-
-
-
-

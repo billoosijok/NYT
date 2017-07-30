@@ -1,37 +1,17 @@
 
-/*	
-	It constructs an API object that can be used to make requests to the
-	passed api url
-	
-	@param params (oftype Object) : 
-			
-			Required properties: 
-				- url (oftype String) : The url of the API.
-				- apikey (oftype String) : The api key.
-			
-			Optional properties: 
-				- timeout (oftype Number) : The minimum delay-duration between each API call.
-*/
 function API_Connect(params) {
 
 	this.url = params.url
 	this.apikey = params.apikey
-	this.timeout = params.timeout || 500
+	this.timeout = params.timeout || 1000
 
-	// This will serve as a delay for the request.
-	// this is done to prevent multiple calls within 
-	// the specified timeout variable
 	var _timeOffIntervall = null;
 
 	this.request = ( (params, callback) => {
 		
-		var delay = this.timeout;
-
 		var reqUrl = this.url + '?' + $.param(params);
 		
-		if(! _timeOffIntervall) {
-			delay = 0;
-		} else {
+		if(_timeOffIntervall) {
 			clearTimeout(_timeOffIntervall);
 		}
 
@@ -52,8 +32,6 @@ function API_Connect(params) {
 			  	throw err;
 			
 			});
-
-			_timeOffIntervall = null
 
 		}, this.timeout);
 
